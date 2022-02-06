@@ -1,0 +1,17 @@
+这里本身是要完成一个reactor模型的，但是httpdData的usercallback部分没有做好，只是作了Connection这一最基础的功能，后续会添加readCallback,writeCallback,errorCallback的功能
+
+Reactor模型是用来处理IO事件，现在的HttpData没有处理IO事件只有连接工作，所以暂时用不到
+
+现在这里不参加Webserver的源程序的组成，这里按照muduo库实现一个简易版本的reactor模型，用来作为学习并作为后续改进
+
+Reactor = Channel + Epoll + One peer through loop+基于EventLoop实现的EventLoppthread+EventLoopthread的功能；并用TimerQueue进行最小堆的事件处理
+
+Webserver/base/thread/threadPool.h 同样也有一个线程库这个是用来实现计算线程的
+
+Channel作为每个Channel对象自始至终只属于一个EventLoop对象，因此每个Channel对象都只属于一个IO线程，只负责一个文件描述符（fd）的IO事件分发， 但他并不拥有这个fd，而且也不会关闭这个fd
+
+Epoll作为作为事件分发结构封装了IO multiplexing
+
+
+
+
